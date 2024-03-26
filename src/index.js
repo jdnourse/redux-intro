@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import store from './store';
+
+store.dispatch({ type: 'account/deposit', payload: 250 });
+console.log(store.getState());
+store.dispatch({ type: 'customer/updateName', payload: 'Jerry Nourse' });
+console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// connecting our Redux store to our application, must bring in another package...react-redux. Then we import { Provider } from 'react-redux' (so Redux and React can talk to one another). We then 'wrap' the <App /> component with the <Provider></Provider> component, then pass the 'store' prop to the <Provider> component.
